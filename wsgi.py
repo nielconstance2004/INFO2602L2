@@ -119,14 +119,14 @@ def toggle_todo_command(todo_id, username):
   todo.toggle()
   print(f'{todo.text} is {"done" if todo.done else "not done"}!')
 
-@click.argument('category', default='chores')
 @click.argument('username', default='bob')
-@click.argument('todo_id', default=1)
+@click.argument('todo_id', default=6)
+@click.argument('category', default='chores')
 @app.cli.command('add-category', help="Adds a category to a todo")
-def add_todo_category_command(category, todo_id, username,):
+def add_todo_category_command(username, todo_id, category):
   user = User.query.filter_by(username=username).first()
   if not user:
-    print(f'user {username} not found!')
+    print(f'{username} not found!')
     return
 
   res = user.add_todo_category(todo_id, category)
@@ -134,5 +134,4 @@ def add_todo_category_command(category, todo_id, username,):
     print(f'{username} has no todo id {todo_id}')
     return
 
-  todo = Todo.query.get(todo_id)
-  print(todo)
+  print('Category added!')
