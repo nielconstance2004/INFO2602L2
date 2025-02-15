@@ -24,7 +24,7 @@ class User(db.Model):
   def __repr__(self):
       return f'<User {self.id} {self.username} - {self.email}>'
 
- # Add method to User model in models.py
+  # Add method to User model in models.py
   def add_todo_category(self, todo_id, category_text):
       # Fetch the todo by id
       todo = Todo.query.filter_by(id=todo_id, user_id=self.id).first()
@@ -64,10 +64,10 @@ class Todo(db.Model):
 
   def __repr__(self):
     category_names = ', '.join([category.text for category in self.categories])
-    return f'<Todo: {self.id} | {self.user.username} | {self.text} | {"done" if self.done else "not done"}>'
+    return f'<Todo: {self.id} | {self.user.username} | {self.text} | { "done" if self.done else "not done" } | categories [{category_names}]>' 
 
 class TodoCategory(db.Model):
-  __tablename__ = 'todo_category'
+  __tablename__ ='todo_category'
   id = db.Column(db.Integer, primary_key=True)
   todo_id = db.Column(db.Integer, db.ForeignKey('todo.id'), nullable=False)
   category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
